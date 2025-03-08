@@ -259,6 +259,9 @@ function openFridge(...foods) {
 // A callback function is a function passed as an argument to another function
 // Used for asynchronous operations like fetching data or event handling
 
+// “Pehle ek kaam karo, fir jab wo ho jaye, tab doosra function chalao.”
+
+
 // Function that takes another function as an argument
 function sum(callback, x, y) {
   let result = x + y;
@@ -351,7 +354,7 @@ const person = {
 
 {// ================== Function(Declaration,Expression) ==================
 
-//? Function Declaration = Defines a function that can be used anywhere in the scope due to hoisting
+//? Function Declaration = Defines a function that can be used anywhere in the scope due to hoisting ( hoisting yane javscript apne memory me yaad rakhta)
 
 console.log(greet("Alok")); // ✅ Works before declaration (hoisting)
 
@@ -489,6 +492,8 @@ class Product {
 // 🔹 Defines properties/methods that belong to the class, not instances.
 // 🔹 Shared among all objects created from the class.
 
+// class ki property hoti hai na ki object ki
+
 class User {
     static userCount = 0; // Belongs to the class, not instances.
   
@@ -561,6 +566,9 @@ class Animal {
 // 🔹 Used to call the constructor of the parent class.
 // 🔹 Allows access to parent class methods/properties.
 
+// Agar child class ka constructor likha hai, toh super() call karna zaroori hai, nahi toh error aayega.
+//  Lekin agar child class ka constructor likha hi nahi, toh super() automatically call ho jata hai, aur error nahi aata.
+
 class Animal {
     constructor(name, age) {
       this.name = name;
@@ -592,4 +600,409 @@ class Animal {
   // Bunny moves at a speed of 10 mph.
   }
 
+  {// ================== Getters & Setters ==================
+
+// 🔹 Getters make a property readable.
+// 🔹 Setters make a property writable.
+// 🔹 Useful for validation and modification when reading/writing a property.
+
+// 💡 Getters & Setters ka use karo taki kisi property ko bina permission ya validation ke change na kiya ja sake!
+
+// 🚀 Pehle setter check karega (valid input hai ki nahi), tabhi value update hogi. Getter safe access dega!
+
+class Person {
+  constructor(firstName, lastName, age) {
+      this._firstName = firstName; // Using _ to avoid direct access
+      this._lastName = lastName;
+      this._age = age;
+  }
+
+  // ✅ Setter Methods (Validate & Modify Values)
+  set firstName(newFirstName) {
+      if (typeof newFirstName === "string" && newFirstName.length > 0) {
+          this._firstName = newFirstName; // ✅ Modifies the private property safely
+      } else {
+          console.error("❌ First name must be a non-empty string.");
+      }
+  }
+
+  set lastName(newLastName) {
+      if (typeof newLastName === "string" && newLastName.length > 0) {
+          this._lastName = newLastName;
+      } else {
+          console.error("❌ Last name must be a non-empty string.");
+      }
+  }
+
+  set age(newAge) {
+      if (typeof newAge === "number" && newAge >= 0) {
+          this._age = newAge;
+      } else {
+          console.error("❌ Age must be a non-negative number.");
+      }
+  }
+
+  // ✅ Getter Methods (Read Properties)
+  get firstName() {
+      return this._firstName;
+  }
+
+  get lastName() {
+      return this._lastName;
+  }
+
+  get fullName() {
+      return `${this._firstName} ${this._lastName}`;
+  }
+
+  get age() {
+      return this._age;
+  }
+}
+
+// ✅ Creating an Instance
+const person = new Person("John", "Doe", 25);
+
+console.log(person.firstName); // John
+console.log(person.lastName);  // Doe
+console.log(person.fullName);  // John Doe
+console.log(person.age);       // 25
+
+// ❌ Invalid Setters Example
+person.firstName = 420;  // ❌ Error: First name must be a non-empty string.
+person.age = -5;         // ❌ Error: Age must be a non-negative number.
+
+}
   
+{// ================== Destructuring in JavaScript ==================
+
+// 🔹 Destructuring allows extracting values from arrays and objects 
+//    and assigning them to variables in a convenient way.
+
+// 🔹 `[]` → Used for array destructuring.
+// 🔹 `{}` → Used for object destructuring.
+
+// ================== Example 1: Swapping Two Variables ==================
+let a = 1;
+let b = 2;
+[a, b] = [b, a];
+
+console.log(a); // Output: 2
+console.log(b); // Output: 1
+
+// ================== Example 2: Swapping Elements in an Array ==================
+const colors = ["red", "green", "blue", "black", "white"];
+[colors[0], colors[4]] = [colors[4], colors[0]];
+
+console.log(colors); // Output: ["white", "green", "blue", "black", "red"]
+
+// ================== Example 3: Assigning Array Elements to Variables ==================
+const colorsArray = ["red", "green", "blue", "black", "white"];
+const [firstColor, secondColor, thirdColor, ...extraColors] = colorsArray;
+
+console.log(firstColor);  // Output: "red"
+console.log(secondColor); // Output: "green"
+console.log(thirdColor);  // Output: "blue"
+console.log(extraColors); // Output: ["black", "white"]
+
+// ================== Example 4: Extracting Values from Objects ==================
+const person1 = {
+  firstName: "Spongebob",
+  lastName: "SquarePants",
+  age: 30,
+  job: "Fry Cook",
+};
+
+const person2 = {
+  firstName: "Patrick",
+  lastName: "Star",
+  age: 34,
+};
+
+// Using default value for `job` if it's missing
+const { firstName, lastName, age, job = "Unemployed" } = person2;
+
+console.log(firstName); // Output: "Patrick"
+console.log(lastName);  // Output: "Star"
+console.log(age);       // Output: 34
+console.log(job);       // Output: "Unemployed"
+
+// ================== Example 5: Destructuring in Function Parameters ==================
+function displayPerson({ firstName, lastName, age, job }) {
+  console.log(`Name: ${firstName} ${lastName}`);
+  console.log(`Age: ${age}`);
+  console.log(`Job: ${job}`);
+}
+
+displayPerson(person1);
+/*
+Output:
+Name: Spongebob SquarePants
+Age: 30
+Job: Fry Cook
+*/
+
+displayPerson(person2);
+/*
+Output:
+Name: Patrick Star
+Age: 34
+Job: Unemployed
+*/
+}
+
+{// ================== Nested Objects ==================
+
+// 🔹 Nested objects are objects inside other objects.
+// 🔹 Helps represent complex data structures.
+// 🔹 A child object is enclosed within a parent object.
+
+// ✅ Example Structure:
+//    Person { Address {}, ContactInfo {} }
+//    ShoppingCart { Keyboard {}, Mouse {}, Monitor {} }
+
+// ================== Example 1: Accessing Nested Object Properties ==================
+const person = {
+  fullName: "Spongebob Squarepants",
+  age: 30,
+  isStudent: true,
+  hobbies: ["karate", "jellyfishing", "cooking"],
+  address: {                  // nested object usecase
+    street: "124 Conch St.",
+    city: "Bikini Bottom",
+    country: "Int. Waters"
+  }
+};
+
+console.log(person.fullName);        // Output: Spongebob Squarepants
+console.log(person.age);             // Output: 30
+console.log(person.isStudent);       // Output: true
+console.log(person.hobbies[2]);      // Output: cooking
+console.log(person.address.city);    // Output: Bikini Bottom
+
+// ✅ Looping Through Nested Object Properties
+for (const property in person.address) {
+  console.log(person.address[property]); 
+}
+/* Output:
+124 Conch St.
+Bikini Bottom
+Int. Waters
+*/
+
+// ================== Example 2: Using Classes for Nested Objects ==================
+
+// ✅ Address Class
+class Address {
+  constructor(street, city, country) {
+    this.street = street;
+    this.city = city;
+    this.country = country;
+  }
+}
+
+// ✅ Person Class
+class Person {
+  constructor(name, age, street, city, country) {
+    this.name = name;
+    this.age = age;
+    this.address = new Address(street, city, country);
+  }
+}
+
+// ✅ Creating Objects Using Classes
+const person1 = new Person("Spongebob", 30, "124 Conch St.", "Bikini Bottom", "Int. Waters");
+const person2 = new Person("Patrick", 37, "128 Conch St.", "Bikini Bottom", "Int. Waters");
+const person3 = new Person("Squidward", 45, "126 Conch St.", "Bikini Bottom", "Int. Waters");
+
+console.log(person3.address.country); // Output: Int. Waters
+
+}
+
+{// ================== Array of Objects ==================
+
+// 🔹 An array can store multiple objects.
+// 🔹 Each object contains multiple properties.
+// 🔹 Useful for handling structured data like products, users, or items.
+
+// ✅ Example: Array of Fruit Objects
+const fruits = [
+  { name: "apple", color: "red", calories: 95 },
+  { name: "orange", color: "orange", calories: 45 },
+  { name: "banana", color: "yellow", calories: 105 },
+  { name: "coconut", color: "white", calories: 159 },
+  { name: "pineapple", color: "yellow", calories: 37 }
+];
+
+// ================== Accessing Elements ==================
+console.log(fruits[3].name);  // Output: coconut
+
+// ================== Array Methods ==================
+
+// ✅ push() → Adds a new object at the end
+fruits.push({ name: "grape", color: "purple", calories: 62 });
+console.log(fruits);
+
+// ✅ pop() → Removes the last object
+fruits.pop();
+console.log(fruits);
+
+// ✅ slice() → Extracts part of the array (does not modify original)
+const slicedFruits = fruits.slice(1, 4);
+console.log(slicedFruits);
+
+// ================== Array Iteration Methods ==================
+
+// ✅ forEach() → Loops through each object
+fruits.forEach(fruit => console.log(fruit.calories));
+/* Output:
+95
+45
+105
+159
+37
+*/
+
+// ✅ map() → Creates a new array of selected properties
+const fruitNames = fruits.map(fruit => fruit.name);
+console.log(fruitNames); // Output: ["apple", "orange", "banana", "coconut", "pineapple"]
+
+// ✅ filter() → Filters objects based on a condition
+const yellowFruits = fruits.filter(fruit => fruit.color === "yellow");
+console.log(yellowFruits);
+/* Output:
+[
+  { name: "banana", color: "yellow", calories: 105 },
+  { name: "pineapple", color: "yellow", calories: 37 }
+]
+*/
+
+// ✅ reduce() → Finds max & min calorie fruit
+const maxFruit = fruits.reduce((max, fruit) => fruit.calories > max.calories ? fruit : max);
+const minFruit = fruits.reduce((min, fruit) => fruit.calories < min.calories ? fruit : min);
+
+console.log(maxFruit); // Output: { name: "coconut", color: "white", calories: 159 }
+console.log(minFruit); // Output: { name: "pineapple", color: "yellow", calories: 37 }
+}
+
+{// ================== Sorting in JavaScript ==================
+
+// 🔹 The `sort()` method is used to sort elements of an array in place.
+// 🔹 By default, it sorts elements as strings in **lexicographic order** (alphabet + numbers + symbols).
+
+// ================== Example 1: Sorting Numbers ==================
+let numbers = [1, 10, 2, 9, 3, 8, 4, 7, 5, 6];
+
+// ✅ Ascending Order (Small → Large)
+numbers.sort((a, b) => a - b);
+console.log(numbers);  // Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+// ✅ Descending Order (Large → Small)
+numbers.sort((a, b) => b - a);
+console.log(numbers);  // Output: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+// ================== Example 2: Sorting Objects ==================
+const people = [
+  { name: "Spongebob", age: 30, gpa: 3.0 },
+  { name: "Patrick", age: 37, gpa: 1.5 },
+  { name: "Squidward", age: 51, gpa: 2.5 },
+  { name: "Sandy", age: 27, gpa: 4.0 }
+];
+
+// ✅ Sort by Age (Ascending)
+people.sort((a, b) => a.age - b.age);
+console.log(people);
+
+// ✅ Sort by Name (Alphabetically)
+people.sort((a, b) => a.name.localeCompare(b.name));
+console.log(people);
+
+// ================== localeCompare() ==================
+// 🔹 `localeCompare()` compares strings alphabetically, considering case & locale.
+// 🔹 It returns:
+//    - `-1` if `a` comes before `b`
+//    - `0` if `a` and `b` are equal
+//    - `1` if `a` comes after `b`
+
+console.log("apple".localeCompare("banana"));  // Output: -1
+console.log("grape".localeCompare("apple"));   // Output: 1
+console.log("orange".localeCompare("orange")); // Output: 0
+}
+
+{// ================== Fisher-Yates Shuffle Array Algorithm ==================
+
+// 🔹 The Fisher-Yates algorithm shuffles an array in place efficiently.
+
+// 🔹 It works by iterating backward through the array and swapping each element
+//    with a randomly chosen earlier element (including itself).
+
+const cards = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+
+shuffle(cards);
+console.log(cards); // Output: Random shuffled order of cards
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {   // Start from last index
+    const random = Math.floor(Math.random() * (i + 1));  // Random index from 0 to i
+    [array[i], array[random]] = [array[random], array[i]]; // Swap elements
+  }
+}
+}
+
+{// ================== Date Objects in JavaScript ==================
+
+// 🔹 Date objects store date & time information.
+// 🔹 They provide methods to get & set date values.
+// 🔹 Dates can be formatted and manipulated easily.
+
+// ✅ Creating a Date Object
+const date = new Date(); // Current date & time
+
+// ================== Getting Date Components ==================
+const year = date.getFullYear();  // ✅ Get the year
+const month = date.getMonth();    // ✅ Get the month (0 = Jan, 11 = Dec)
+const day = date.getDate();       // ✅ Get the day of the month
+const hour = date.getHours();     // ✅ Get the hour (0-23)
+const minutes = date.getMinutes();// ✅ Get the minutes
+const seconds = date.getSeconds();// ✅ Get the seconds
+const dayOfWeek = date.getDay();  // ✅ Get the day of the week (0 = Sunday, 6 = Saturday)
+
+console.log(year);
+console.log(month);
+console.log(day);
+console.log(hour);
+console.log(minutes);
+console.log(seconds);
+console.log(dayOfWeek);
+
+// ================== Setting Date Components ==================
+date.setFullYear(2024);  // Set the year
+date.setMonth(0);        // Set month to January (0-based)
+date.setDate(1);         // Set day of the month
+date.setHours(2);        // Set hour
+date.setMinutes(3);      // Set minutes
+date.setSeconds(3);      // Set seconds
+
+console.log(date); // Output: Modified date object
+
+// ================== Comparing Dates ==================
+const date1 = new Date("2023-12-31");  // 31st Dec 2023
+const date2 = new Date("2023-12-30");  // 30th Dec 2023
+
+if (date2 > date1) {  // Corrected comparison
+    console.log("HAPPY NEW YEAR!");  
+} else {
+    console.log("Still waiting...");
+}
+
+// ================== Formatting a Date ==================
+console.log(date.toDateString());  // Example: "Mon Jan 01 2024"
+console.log(date.toLocaleDateString()); // Example: "1/1/2024" (Depends on locale)
+console.log(date.toISOString());   // Example: "2024-01-01T02:03:03.000Z"
+
+// ================== Notes on Date ==================
+// 🔹 Months are 0-based (Jan = 0, Dec = 11).
+// 🔹 `.getDay()` returns day index (0 = Sunday, 6 = Saturday).
+// 🔹 `.toISOString()` returns UTC time in a standard format.
+}
+

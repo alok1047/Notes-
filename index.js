@@ -561,4 +561,383 @@ super. move (this.runSpeed);
 
 }
 
+{ //?  super = keyword
+  //?          is used in classes to call the constructor or
+  //?     access the properties and methods of a parent (superclass)
+  //?            this = this object
+  //?                  super = the parent
+  
+/*
 
+
+*/
+
+}
+
+
+{ //?  getters and setters
+
+  // getter = special method that makes a property readable
+
+// setter = special method that makes a property
+ //writeable
+
+
+// validate and modify a value when reading/writing property
+
+/* class Person{
+constructor (firstName, lastName, age){
+this.firstName = firstName;
+this. lastName = lastName;
+this. age = age;
+}
+
+set firstName (newFirstName){
+if(typeof newFirstName === "string" && newFirstName. length › 0
+this._firstName = newFirstName;
+else{
+console.error("First name must be a non-empty string"D;
+}
+set age (newAge) {
+if(typeof newAge === "number" && newAge ›= 0){
+this._ age = newAge;
+}
+elset
+console.error ("Age must be a non-negative number");
+}
+}
+get firstName(){
+return this._firstName;
+}
+get lastName (){
+return this._lastName;
+get fullName (){
+return this._firstName + " " + this._ lastName;
+get age ( )K
+return this._age;
+
+const person = new Person(420, 69, "pizza");
+console.1og(person. firstName);
+console.1og(person. lastName) ;
+console.log(person.age); 
+
+
+
+
+
+
+
+
+
+*/
+
+}
+
+{ //? // destructuring = extract values from arrays and objects,
+  //   then assign them to variables in a convenient way
+  //  [] = to perform array destructuring
+  //  {} = to perform object destructuring
+  //          5 examples
+ 
+  /*
+
+- -
+EXAMPLE 1
+         SWAP THE VALUE OF TWO VARIABLES
+let a = 1;
+let b = 2;
+[a, b] = [b, al;
+console. log(a);
+console. 1og(b);
+
+
+- - -
+EXAMPLE 2 --
+- - - - - - — - — —
+          SWAP 2 ELEMENTS IN AN ARRAY
+const colors = ["red"
+", "green", "blue", "black", "white"];
+[colors[0], colors[4]] = [colors[4], colors[0]];
+console. log(colors);
+
+
+
+---------- EXAMPLE 3 ---
+              ASSIGN ARRAY ELEMENTS TO VARIABLES
+const colors = ["red", "green", "blue", "black", "white"];
+const [firstColor, secondColor, thirdColor, ...extracolor] = colors;
+console. log(firstcolor);
+console. log (secondColor);
+console. log(thirdColor);
+console. log(extraColor);
+
+
+
+ーーーー
+EXAMPLE 4
+- - -
+
+   EXTRACT VALUES FROM OBJECTS
+const person1 =
+firstName: "Spongebob"
+lastName: "SquarePants" ,
+age: 30,
+job:
+"Fry Cook"
+｝
+const person2 = {
+firstName: "Patrick",
+lastName: "Star"
+age: 34,
+}
+
+const
+{firstName, lastName, age, job="Unemployed"} = person2;
+console. log (firstName);
+console. log(lastName) ;
+console. log (age);
+console. log(job);
+
+
+-
+EXAMPLE 5
+      / DESTRUCTURE IN FUNCTION PARAMETERS
+function displayPerson({firstName, lastName, age, job}){
+console. log(* name: ${firstName} ${lastName}*);
+console. log(* age: ${age}*);
+console. log(job: #{job}*);
+}
+const person1 =
+firstName: "Spongebob",
+lastName: "SquarePants",
+age: 30,
+job: "Fry Cook",
+}
+const person2 = {
+firstName: "Patrick",
+lastName: "Star",
+age: 34,
+｝
+displayPerson(person2);
+
+
+  */
+
+
+}
+
+{ //?  nested objects = Objects inside of other Objects.
+  //    Allows you to represent more complex data structures
+ //       Child Object is enclosed by a Parent Object.
+
+
+  //    Person{Address{}, ContactInfo{}}
+  //           ShoppingCart{Keyboard{}, Mouse{}, Monitor{}}
+ 
+  /*const person = {
+    FullName: "Spongebob Squarepants",
+    age: 30,
+    isStudent: true,
+    hobbies: ["karate", "jellyfishing", "cooking"],
+    address: {
+    street: "124 Conch St.",
+    city: "Bikini Bottom"
+    country: "Int. Water"
+    ｝
+    console. log(person.fullName);
+    console. log(person. age);
+    console. log(person.isStudent);
+    console. log(person.hobbies [2]);
+    console. log(person.address.cityb;
+ 
+for(const property in person. address){
+console. 1og(person.address[property]l);
+}
+
+class Person{
+constructor (name, age, ... address){
+this.name = name;
+this. age = age;
+this.address = new Address... address) ;
+}
+class Address{
+constructor (street, city, country)
+this.street = street;
+this.city = city;
+this.country = country;
+}
+const personi = new Person ("Spongebob", 30, "124 Conch st.",
+"Bikini Bottom",
+"Int. Waters");
+const person2 = new Person ("Patrick", 37,
+"128 Conch St."
+"Bikini Bottom"
+J
+"Int. Waters");
+const person3 = new Person ("Squidward", 45, "126 Conch st.",
+"Bikini Bottom",
+"Int. Waters");
+console. log(person3.address. country);
+  
+
+  */
+}
+
+
+{// ? array of objects
+  /*
+  
+  const fruits = [{name: "apple", color: "red", calories: 95},
+{name: "orange"
+', color: "orange"
+', calories: 45},
+{name: "banana"
+', color: "yellow", calories: 105},
+{name:
+"coconut"
+', color: "white", calories: 159},
+{name: "pineapple", color: "yellow", calories: 37}];
+
+
+console. log(fruits[3]
+- name ) ;
+
+fruits.push()
+fruits.pop()
+fruits.slice()
+
+forEach()
+fruits. forEach(fruit =› console.log(fruit.calories));
+
+
+•- map()
+- - - - - -
+const fruitNames = fruits.map(fruit =›> fruit.name);
+console.1og(fruitNames) ;
+  
+filter() -
+const yellowFruits = fruits. filter(fruit => fruit.color === "yellow");
+console. log(yellowFruits) ;
+  
+
+ーーー
+- - reduce) --
+const maxFruit = fruits.reduce( (max, fruit) =›
+fruit. calories › max.calories ?
+fruit : max);
+const minFruit = fruits.reduce( (min, fruit) =>
+fruit. calories ‹ min.calories ?
+fruit : min);
+console. log(maxFruit);
+console.log(minFruit);
+  
+  
+  */
+
+}
+
+
+{ //? // sort() = method used to sort elements of an array in place.
+  // Sorts elements as strings in lexicographic order, not alphabetical
+  // lexicographic = (alphabet + numbers + symbols) as strings
+
+  /*
+  
+  let numbers = [1, 10, 2, 9, 3, 8, 4, 7, 5, 6];
+numbers. sort((a, b) => a - b);
+numbers. sort((a, b) => b - a);
+console. log (numbers) ;
+  
+  
+  const people = [{name: "Spongebob", age: 30, ga: 3.0},
+(name: "Patrick", age: 37, gpa: 1.5},
+{name: "Squidward", age: 51, gpa: 2.5},
+{name: "Sandy", age: 27, gpa: 4.0}]
+people. sort((a, b) => a.age - b.age);
+console. log(people) ;
+
+people. sort((a, b) => a. name. localeCompare(b.name)); //localecompare ? 
+console. log(people);
+  
+  
+  
+  
+  
+  
+  
+  */
+}
+
+{//? shuffle an array (Fishers yats algorithm)
+  /*
+
+const cards = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+shuffle(cards) ;
+console. log(cards) ;
+function shuffle(array)E
+for(let i = array. length - 1; i › 0; i--){
+const random = Math. floor (Math. random () * (i + 1));
+[array[i], array[random]] = [array[random], array[i]l;
+} how is this even working
+  
+  
+  */ 
+}
+
+
+{ //? // Date objects = Objects that contain values that represent dates and times
+   //                   These date objects can be changed and formatted
+
+   /*
+const date = new Date;
+
+const year = date .getFullYear();
+const month = date. getMonth ();
+const day = date. getDate() ;
+const hour = date getHours);
+const minutes = date getMinutes();
+const seconds = date. getSeconds ();
+const dayofWeek = date. getDay() ;
+
+console. log (year);
+console. log(month);
+console. log (day);
+console. log (hour);
+console. log(minutes);
+console. log (seconds) ;
+console. log(dayOfWeek) ;
+
+date.setFullYear (2024);
+date. setMonth(0) ;
+date.setDate (1);
+date. setHours (2);
+date.setMinutes (3);
+date.setSeconds (3);
+
+const datel = new Date("2023-12-31");
+const date2 = new Date("2023-12-30");
+if(date2 › date1){
+console. log( "HAPPY NEW YEAR!");
+}
+
+   */
+
+}
+
+{//? closure = = A function defined inside of another function,
+              //   the inner function has access to the variables
+//        and scope of the outer function.Allow for private variables and state maintenance
+ //           Used frequently in JS frameworks: React, Vue, Angular
+  
+/*
+function outer){
+let
+message = "Hello";
+function inner(){
+console. log(message);
+inner ();
+}
+outer ( );
+*/
+
+}
