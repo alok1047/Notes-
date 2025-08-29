@@ -21,11 +21,11 @@ let input;
 input = window.prompt("What is your name?");  
 console.log(input);
 
-// Handling user input on button click
+// Handling user input on click
 let username;
 document.getElementById("mySubmit").onclick = function() {
-  username = document.getElementById("myText").value;
-  document.getElementById("myH1").textContent = `Hello ${username}`;
+  username = document.getElementById("myText").value;  // myText = alok
+  document.getElementById("myH1").textContent = `Hello ${username}`; // output = Hello alok
 };
 
 // Converting user input to different data types
@@ -52,17 +52,17 @@ console.log(Math.PI);
 // Math.E provides Euler's number (2.718), the base of the natural logarithm
 console.log(Math.E);
 
-let z = Math.round(4.5);    // Rounds to nearest integer
-z = Math.floor(4.9);        // Rounds down
-z = Math.ceil(4.1);         // Rounds up
-z = Math.trunc(4.98766);    // Removes decimal part
-z = Math.pow(2, 3);         // Exponentiation (2^3)
+let z = Math.round(4.5);    // Rounds to nearest integer = 5
+z = Math.floor(4.9);        // Rounds down = 4
+z = Math.ceil(4.1);         // Rounds up = 5
+z = Math.trunc(4.98766);    // Removes decimal part = 4
+z = Math.pow(2, 3);         // Exponentiation (2^3) 
 z = Math.sqrt(16);          // Square root
-z = Math.log(10);           // Natural logarithm
+z = Math.log(10);           // Natural logarithm 
 z = Math.sin(Math.PI / 2);  // Sine function
 z = Math.cos(0);            // Cosine function
-z = Math.tan(Math.PI / 4);  // Tangent function
-z = Math.abs(-10);          // Absolute value
+z = Math.tan(Math.PI / 4);  // Tangent function 
+z = Math.abs(-10);          // Absolute value = 10
 z = Math.sign(0);           // Returns -1, 0, or 1
 
 // Finding the maximum and minimum values from a list
@@ -259,7 +259,7 @@ function openFridge(...foods) {
 // A callback function is a function passed as an argument to another function
 // Used for asynchronous operations like fetching data or event handling
 
-// “Pehle ek kaam karo, fir jab wo ho jaye, tab doosra function chalao.”
+// “Pehle ek kaam karo, fir jab wo ho jaye, tab uske result se doosra function chalao.”
 
 
 // Function that takes another function as an argument
@@ -439,6 +439,10 @@ const person1 = {
 // 🔹 A special function to create and initialize objects.
 // 🔹 Used with the `new` keyword to create multiple instances.
 
+// similar object banane ke kaam ata hai like school id card me name
+// class addresss .. arguement jana hota bs value diff krni hoti
+
+
 // ✅ Example: Defining a Constructor
 function Car(make, model, year, color) {
     this.make = make;
@@ -600,14 +604,13 @@ class Animal {
   // Bunny moves at a speed of 10 mph.
   }
 
-  {// ================== Getters & Setters ==================
+{// ================== Getters & Setters ==================
 
 // 🔹 Getters make a property readable.
 // 🔹 Setters make a property writable.
 // 🔹 Useful for validation and modification when reading/writing a property.
 
 // 💡 Getters & Setters ka use karo taki kisi property ko bina permission ya validation ke change na kiya ja sake!
-
 // 🚀 Pehle setter check karega (valid input hai ki nahi), tabhi value update hogi. Getter safe access dega!
 
 class Person {
@@ -1006,3 +1009,95 @@ console.log(date.toISOString());   // Example: "2024-01-01T02:03:03.000Z"
 // 🔹 `.toISOString()` returns UTC time in a standard format.
 }
 
+{// ================== Closures in JavaScript ==================
+
+// 🔹 A closure is a function inside another function that has access 
+//    to the outer function's variables, even after the outer function has executed.
+// 🔹 Allows for private variables and state maintenance.
+// 🔹 Commonly used in JS frameworks like React, Vue, Angular.
+
+// ================== Example 1: Basic Closure ==================
+function outer() {
+  let message = "Hello, Closure!";
+  
+  function inner() {
+    console.log(message);  // Accesses `message` from outer function
+  }
+  
+  return inner;
+}
+
+const closureFn = outer();
+closureFn();  // Output: "Hello, Closure!"
+
+// ================== Example 2: Data Encapsulation ==================
+function counter() {
+  let count = 0;  // Private variable
+  
+  return function() {
+    count++;
+    console.log(count);
+  };
+}
+
+const increment = counter();
+increment();  // Output: 1
+increment();  // Output: 2
+
+
+// ================== Example 4: Closures in Loops ==================
+// 🔹 Closures help retain variable values in asynchronous loops.
+
+for (var i = 1; i <= 3; i++) {
+  setTimeout(function() {
+    console.log(i);  // Expected: 1, 2, 3 | Output: 4, 4, 4 (due to var scope)
+  }, i * 1000);
+}
+
+// ✅ Fix using closures (IIFE)
+for (var i = 1; i <= 3; i++) {
+  (function(j) {
+    setTimeout(function() {
+      console.log(j);  // Output: 1, 2, 3
+    }, j * 1000);
+  })(i);
+}
+
+// ================== Summary ==================
+// 🔹 Closures retain access to outer function variables even after execution.
+// 🔹 Useful for private variables, state maintenance, and memoization.
+// 🔹 Avoid excessive closures to prevent memory leaks.
+
+}
+
+{// ================== setTimeout() in JavaScript ==================
+
+// 🔹 `setTimeout()` schedules a function to execute after a delay (in milliseconds).
+// 🔹 The actual execution time may vary based on system workload.
+// 🔹 `clearTimeout(timeoutId)` cancels a scheduled timeout.
+
+// ================== Example 1: Basic Usage ==================
+setTimeout(() => {
+  console.log("Executed after 3 seconds");
+}, 3000);
+
+// ================== Example 2: Storing and Clearing Timeout ==================
+const timeoutId = setTimeout(() => {
+  console.log("This will not execute");
+}, 5000);
+
+clearTimeout(timeoutId); // Cancels the timeout
+
+// ================== Example 3: Delayed Function Execution ==================
+function greet(name) {
+  setTimeout(() => {
+    console.log(`Hello, ${name}!`);
+  }, 2000);
+}
+greet("Grace"); // Output after 2s: "Hello, Grace!"
+
+// ================== Summary ==================
+// 🔹 `setTimeout(callback, delay)` runs a function after a delay.
+// 🔹 `clearTimeout(id)` stops a scheduled execution.
+// 🔹 Useful for delaying tasks, animations, or API calls.
+}
